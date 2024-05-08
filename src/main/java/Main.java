@@ -21,7 +21,7 @@ class Main {
         System.out.println("Wybierz opcję:");
         System.out.println("1. Dodaj nowego studenta");
         System.out.println("2. Wyświetl wszystkich studentów");
-        System.out.println("0. Wyjdź z programu");
+        System.out.println("0. Wyjdź");
 
         int choice = Integer.parseInt(reader.readLine());
 
@@ -29,9 +29,11 @@ class Main {
           case 1:
             System.out.println("Podaj imię studenta:");
             String name = reader.readLine();
+            System.out.println("Podaj nazwisko studenta:");
+            String surname = reader.readLine();
             System.out.println("Podaj wiek studenta:");
             int age = Integer.parseInt(reader.readLine());
-            s.addStudent(new Student(name, age));
+            s.addStudent(new Student(name, surname, age));
             System.out.println("Nowy student został dodany do bazy danych.");
             break;
           case 2:
@@ -50,9 +52,9 @@ class Main {
         }
       }
     } catch (IOException e) {
-      System.out.println("I/O ERROR " + e.getMessage());
+      System.out.println("I/O ERROR" + e.getMessage());
     } catch (NumberFormatException e) {
-      System.out.println("Błąd z formatem danych");
+      System.out.println("INVALID TYPE ERROR");
     }
   }
 }
