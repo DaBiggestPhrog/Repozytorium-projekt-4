@@ -17,18 +17,42 @@ class Main {
       Service s = new Service();
       BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-      System.out.println("Podaj imię studenta:");
-      String name = reader.readLine();
-      System.out.println("Podaj wiek studenta:");
-      int age = Integer.parseInt(reader.readLine());
+      while (true) {
+        System.out.println("Wybierz opcję:");
+        System.out.println("1. Dodaj nowego studenta");
+        System.out.println("2. Wyświetl wszystkich studentów");
+        System.out.println("0. Wyjdź z programu");
 
-      s.addStudent(new Student(name, age));
+        int choice = Integer.parseInt(reader.readLine());
 
-      System.out.println("Nowy student został dodany do bazy danych.");
+        switch (choice) {
+          case 1:
+            System.out.println("Podaj imię studenta:");
+            String name = reader.readLine();
+            System.out.println("Podaj wiek studenta:");
+            int age = Integer.parseInt(reader.readLine());
+            s.addStudent(new Student(name, age));
+            System.out.println("Nowy student został dodany do bazy danych.");
+            break;
+          case 2:
+            System.out.println("Lista wszystkich studentów:");
+            var students = s.getStudents();
+            for (Student student : students) {
+              System.out.println(student.ToString());
+            }
+            break;
+          case 0:
+            System.out.println("Koniec programu.");
+            return;
+          default:
+            System.out.println("Niepoprawny wybór. Wybierz ponownie.");
+            break;
+        }
+      }
     } catch (IOException e) {
-      System.out.println("Wystąpił błąd podczas dodawania nowego studenta do bazy danych: " + e.getMessage());
+      System.out.println("I/O ERROR " + e.getMessage());
     } catch (NumberFormatException e) {
-      System.out.println("Wystąpił błąd podczas podawania wieku.");
+      System.out.println("Błąd z formatem danych");
     }
   }
 }
