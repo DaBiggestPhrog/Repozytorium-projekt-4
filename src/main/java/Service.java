@@ -5,28 +5,24 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
 public class Service {
 
   public void addStudent(Student student) throws IOException {
-    var f = new FileWriter("db.txt", true);
-    var b = new BufferedWriter(f);
-    b.append(student.ToString());
-    b.newLine();
-    b.close();
+    try (var b = new BufferedWriter(new FileWriter("db.txt", true))) {
+      b.append(student.toString());
+      b.newLine();
+    }
   }
 
   public Collection<Student> getStudents() throws IOException {
     var ret = new ArrayList<Student>();
-    var f = new FileReader("db.txt");
-    var reader = new BufferedReader(f);
-    String line = "";
-    while (true) {
-      line = reader.readLine();
-      if(line == null)
-        break;
-      ret.add(Student.Parse(line));
+    try (var reader = new BufferedReader(new FileReader("db.txt"))) {
+      String line;
+      while ((line = reader.readLine()) != null) {
+        ret.add(Student.parse(line));
+      }
     }
-    reader.close();
     return ret;
   }
 

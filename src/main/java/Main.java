@@ -13,9 +13,8 @@ import java.io.InputStreamReader;
 
 class Main {
   public static void main(String[] args) {
-    try {
+    try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
       Service s = new Service();
-      BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
       while (true) {
         System.out.println("Wybierz opcję:");
@@ -33,14 +32,16 @@ class Main {
             String surname = reader.readLine();
             System.out.println("Podaj wiek studenta:");
             int age = Integer.parseInt(reader.readLine());
-            s.addStudent(new Student(name, surname, age));
+            System.out.println("Podaj datę urodzenia studenta (yyyy-mm-dd):");
+            String birthDate = reader.readLine();
+            s.addStudent(new Student(name, surname, age, birthDate));
             System.out.println("Nowy student został dodany do bazy danych.");
             break;
           case 2:
             System.out.println("Lista wszystkich studentów:");
             var students = s.getStudents();
             for (Student student : students) {
-              System.out.println(student.ToString());
+              System.out.println(student.toString());
             }
             break;
           case 0:
@@ -52,7 +53,7 @@ class Main {
         }
       }
     } catch (IOException e) {
-      System.out.println("I/O ERROR" + e.getMessage());
+      System.out.println("I/O ERROR: " + e.getMessage());
     } catch (NumberFormatException e) {
       System.out.println("INVALID TYPE ERROR");
     }
