@@ -26,7 +26,16 @@ public class Service {
     return ret;
   }
 
-  public Student findStudentByName(String name) {
+  public Student findStudentByName(String surname) throws IOException {
+    try (var reader = new BufferedReader(new FileReader("db.txt"))) {
+      String line;
+      while ((line = reader.readLine()) != null) {
+        Student student = Student.parse(line);
+        if (student.getSurname().equalsIgnoreCase(surname)) {
+          return student;
+        }
+      }
+    }
     return null;
   }
 }
