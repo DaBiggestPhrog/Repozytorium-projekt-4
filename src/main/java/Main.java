@@ -32,8 +32,12 @@ class Main {
             String surname = reader.readLine();
             System.out.println("Podaj wiek studenta:");
             int age = Integer.parseInt(reader.readLine());
-            System.out.println("Podaj datę urodzenia studenta (yyyy-mm-dd):");
+            System.out.println("Podaj datę urodzenia studenta (dd.mm.yyyy):");
             String birthDate = reader.readLine();
+            if (!Student.isValidDate(birthDate)) {
+              System.out.println("Niepoprawna data. Spróbuj ponownie.");
+              break;
+            }
             s.addStudent(new Student(name, surname, age, birthDate));
             System.out.println("Nowy student został dodany do bazy danych.");
             break;
